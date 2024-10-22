@@ -38,7 +38,7 @@ const ScoraChart = () => {
       <CardHeader className="items-center pb-4">
         <CardTitle className='text-2xl font-black'>Scora chart</CardTitle>
         <CardDescription>
-          Showing your score on different criterias
+          Radar graph score on different criterias
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-0 ">
@@ -57,15 +57,8 @@ const ScoraChart = () => {
             />
           </RadarChart>
         </ChartContainer>
+        <br />
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="flex items-center gap-2 leading-none text-muted-foreground">
-          January - June 2024
-        </div>
-      </CardFooter>
     </Card>
   )
 }
