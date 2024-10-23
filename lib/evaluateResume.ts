@@ -1,43 +1,57 @@
-// utils/evaluateResume.ts
+import {ScoraType } from "@/types/ScoraType";
 
-export function evaluateResume(resumeText: string){
-    let score = 0;
+export function evaluateResume(resumeText: string): ScoraType {
+  // Length Criteria
+  let lengthRaw = resumeText.split(/\s+/).length;
+  const length = Math.min(5, Math.floor(lengthRaw / 100)); // Max 5 points for length
 
-    // Length Criteria
-    let wordCount = resumeText.split(/\s+/).length 
-    wordCount = Math.min(5, Math.floor(wordCount / 100)); // Max 5 points for length
-    // // Keywords Criteria
-    const keywords = [
-        /manage[s|d|ing|r]?/i,
-        /graphic design|design|visual/i,
-        /mentor[s|ed|ing]?/i,
-        /supervis[ed|es|ing]?/i,
-        /market share|marketing|marketer|market research/i
-    ];
-    
-    let keywordScore = 0;
-    keywords.forEach((keyword) => {
-        if (keyword.test(resumeText)) {
-            keywordScore += 2;
-        }
-    });
-    keywordScore += Math.min(10, keywordScore); // Max 10 points for keywords
+  // // Keywords Criteria
+  let keywordRaw = 0;
+  const keywords = [
+    /manage[s|d|ing|r]?/gi,
+    /graphic design|design|visual/gi,
+    /mentor[s|ed|ing]?/gi,
+    /supervis[ed|es|ing]?/gi,
+    /market share|marketing|marketer|market research/gi,
+  ];
 
-    // // Education Criteria
-    // const educationKeywords = /bachelor|master|phd/i;
-    // if (educationKeywords.test(resumeText)) {
-    //     score += 5; // 5 points if degree is found
-    // }
+  keywords.forEach((keyword) => {
+    const matches = resumeText.match(keyword);
+    if (matches) {
+      keywordRaw += matches.length * 2; // 2 points for each occurrence
+    }
+  });
+  const keyword = Math.min(10, keywordRaw); // Max 10 points for keywords
 
-    // // Experience Criteria (assuming a simple check for "years" or relevant terms)
-    // const experiencePattern = /(\d+)\s+years/i;
-    // const experienceMatch = resumeText.match(experiencePattern);
-    // if (experienceMatch && parseInt(experienceMatch[1]) >= 2) {
-    //     score += 5; // 5 points for 2+ years of experience
-    // }
+  // Education Criteria
+  let educationRaw = 0;
+  const educationKeywords = [
+    /bs | bachelor['s]?/gi,
+    /master['s]?/gi,
+    /phd|doctorate/gi,
+  ];
+  educationKeywords.forEach((education) => {
+    const matches = resumeText.match(education);
+    if (matches) {
+      educationRaw += matches.length * 5; // 5 points for each occurrence
+    }
+  });
+  const education = Math.min(5, educationRaw); // Max 5 points for keywords
 
-    return [wordCount, keywordScore];
+  // Experience Criteria (assuming a simple check for "years" or relevant terms)
+  let experienceRaw = 0;
+  const experiencePattern = /(\d+)\s*years?|(\d+)\s*yrs?/i; // Matches "year", "years", "yr", "yrs", with or without space
+  const experienceMatch = resumeText.match(experiencePattern);
+  if (experienceMatch) {
+    const years = experienceMatch[1] || experienceMatch[2]; // Get the matched number
+    if (parseInt(years) >= 2) {
+      experienceRaw += 5;
+    }
+  }
+  const experience = Math.min(5, experienceRaw); // Max 5 points for experience
+
+  const scora = ((length + keyword + education + experience) / 25) * 100;
+  const raw = { lengthRaw, keywordRaw, educationRaw, experienceRaw };
+  const scoraFinal = { scora, length: lengthRaw, keyword:keywordRaw, education:educationRaw, experience:experienceRaw };
+  return scoraFinal;
 }
-
-
-
