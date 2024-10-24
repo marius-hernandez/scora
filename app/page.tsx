@@ -8,7 +8,7 @@ import { evaluateResume } from "@/lib/evaluateResume";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import pdfToText from "react-pdftotext";
+import pdfToText from "bug-remedy-react-pdftotext";
 
 
 export default function Home() {
