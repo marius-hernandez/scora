@@ -8,7 +8,7 @@ import { evaluateResume } from "@/lib/evaluateResume";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import pdfToText from "react-pdftotext";
+import pdfToText from "react-pdftotext-temppackage";
 
 
 export default function Home() {
@@ -16,15 +16,14 @@ export default function Home() {
   const router = useRouter();
   const [resume, setResume]=useState("")
   const [scora, setScora] = useState({
-    scora: 0,
-    length: 0,
-    keyword: 0,
-    education: 0,
-    experience: 0,
+    scora: [0,0],
+    length: [0,0],
+    keyword: [0,0],
+    education: [0,0],
+    experience: [0,0],
   });
 
   const action = () => {
-    console.log(resume)
     const result = evaluateResume(resume);
     setScora(result);
     setScoraComponent(true)
@@ -33,9 +32,9 @@ export default function Home() {
 
    function extractText(event:any) {
     const file = event.target.files[0];
-    const text= pdfToText(file)
+    pdfToText(file)
       .then((text) => setResume(text))
-      .catch((error) => console.error("Failed to extract text from pdf"))
+      .catch((error) => console.error(error))
   }
   return (
     <main
@@ -65,15 +64,6 @@ export default function Home() {
         <form action={action}>
           <br />
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            {/* <Input name="resume" id="picture" type="file" /> */}
-            {/* <FilePond
-            name="filepond"
-      server={{
-        process: '/api/upload',
-        fetch: null,
-        revert: null,
-      }}
-    /> */}
     <input type="file" accept="application/pdf" onChange={extractText} />
           </div>
           <br />
@@ -91,7 +81,7 @@ export default function Home() {
         </span>
       </Card>
 
-      {scoraComponent ? <Scora {...scora} /> : null}
+      {scoraComponent ? <Scora {...scora}/> : null}
     </main>
   );
 }

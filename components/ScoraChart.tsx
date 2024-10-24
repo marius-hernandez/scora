@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import { TrendingUp } from "lucide-react"
@@ -19,20 +19,36 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [
-  { title: "Length", value: 186 },
-  { title: "Keywords", value: 305 },
-  { title: "Education", value: 237 },
-  { title: "Experience", value: 273 },
-]
+import { ScoraType } from '@/types/ScoraType'
+import { title } from 'process'
+// const chartData = [
+//   { title: "Length", value: 186 },
+//   { title: "Keywords", value: 305 },
+//   { title: "Education", value: 237 },
+//   { title: "Experience", value: 273 },
+// ]
 
 const chartConfig = {
   value: {
-    label: "value",
+    label: "percent",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig
-const ScoraChart = () => {
+const ScoraChart = (scora:ScoraType) => {
+  const [data, setData]=useState([{}]);
+
+  const getPercent=(raw:number, max:number)=>{
+    return (raw/max)*100
+  }
+
+  useEffect(()=>{
+    setData([
+      {title:"Length", value: getPercent(scora.length[1],5)},
+      {title:"Keywords", value:getPercent(scora.keyword[1],10)},
+      {title:"Education", value:getPercent(scora.education[1],5)},
+      {title:"Experience", value:getPercent(scora.experience[1],5)},
+    ])
+  },[])
   return (
     <Card>
       <CardHeader className="items-center pb-4">
@@ -46,7 +62,7 @@ const ScoraChart = () => {
           config={chartConfig}
           className="mx-auto aspect-square max-h-[250px] w-full"
         >
-          <RadarChart data={chartData}>
+          <RadarChart data={data}>
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <PolarAngleAxis dataKey="title" />
             <PolarGrid />

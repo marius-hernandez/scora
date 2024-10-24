@@ -52,6 +52,6 @@ export function evaluateResume(resumeText: string): ScoraType {
 
   const scora = ((length + keyword + education + experience) / 25) * 100;
   const raw = { lengthRaw, keywordRaw, educationRaw, experienceRaw };
-  const scoraFinal = { scora, length: lengthRaw, keyword:keywordRaw, education:educationRaw, experience:experienceRaw };
+  const scoraFinal = { scora:[scora,scora], length: [lengthRaw, length], keyword:[keywordRaw, keyword], education:[educationRaw,education], experience:[experienceRaw, experience] };
   return scoraFinal;
 }
