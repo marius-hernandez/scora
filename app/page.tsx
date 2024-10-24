@@ -8,8 +8,11 @@ import { evaluateResume } from "@/lib/evaluateResume";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import pdfToText from "bug-remedy-react-pdftotext";
+// import { pdfjs } from "react-pdf";
+import * as pdfjs from "pdfjs-dist";
+import { pdfToText } from "@/lib/helper";
 
+// pdfjs.GlobalWorkerOptions.workerSrc="https://unpkg.com/pdfjs-dist@4.4.168/legacy/build/pdf.worker.min.mjs"
 
 export default function Home() {
   const [scoraComponent, setScoraComponent] = useState(false);
@@ -29,10 +32,10 @@ export default function Home() {
     setScoraComponent(true)
     router.push("#scora");
   };
+  
 
    function extractText(event:any) {
-    const file = event.target.files[0];
-    pdfToText(file)
+    pdfToText(event.target.files[0])
       .then((text) => setResume(text))
       .catch((error) => console.error(error))
   }
