@@ -12,8 +12,6 @@ import { useEffect, useState } from "react";
 import * as pdfjs from "pdfjs-dist";
 import { pdfToText } from "@/lib/helper";
 
-// pdfjs.GlobalWorkerOptions.workerSrc="https://unpkg.com/pdfjs-dist@4.4.168/legacy/build/pdf.worker.min.mjs"
-
 export default function Home() {
   const [scoraComponent, setScoraComponent] = useState(false);
   const router = useRouter();
@@ -34,9 +32,10 @@ export default function Home() {
   };
   
 
-   function extractText(event:any) {
-    pdfToText(event.target.files[0])
-      .then((text) => setResume(text))
+   async function extractText(event:any) {
+    console.log("yo")
+    await pdfToText(event.target.files[0])
+      .then((text) => setResume(text!))
       .catch((error) => console.error(error))
   }
   return (
