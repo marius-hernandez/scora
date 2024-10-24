@@ -1,4 +1,22 @@
 import { pdfjs } from "react-pdf";
+if (typeof Promise.withResolvers === 'undefined') {
+  if (window)
+      // @ts-expect-error This does not exist outside of polyfill which this is doing
+      window.Promise.withResolvers = function () {
+          let resolve, reject;
+          const promise = new Promise((res, rej) => {
+              resolve = res;
+              reject = rej;
+          });
+          return { promise, resolve, reject };
+      };
+}
+// there is your `/legacy/build/pdf.worker.min.mjs` url
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/legacy/build/pdf.worker.min.mjs',
+  import.meta.url
+).toString();
+
 
 export const pdfToText = async (file: File | Blob | MediaSource) => {
     // Create a blob URL for the PDF file
@@ -38,23 +56,6 @@ export const pdfToText = async (file: File | Blob | MediaSource) => {
     }
   };
 
-if (typeof Promise.withResolvers === 'undefined') {
-    if (window)
-        // @ts-expect-error This does not exist outside of polyfill which this is doing
-        window.Promise.withResolvers = function () {
-            let resolve, reject;
-            const promise = new Promise((res, rej) => {
-                resolve = res;
-                reject = rej;
-            });
-            return { promise, resolve, reject };
-        };
-}
-// there is your `/legacy/build/pdf.worker.min.mjs` url
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/legacy/build/pdf.worker.min.mjs',
-    import.meta.url
-).toString();
 
 // or you can use this
 // pdfjs.GlobalWorkerOptions.workerSrc="https://unpkg.com/pdfjs-dist@4.4.168/legacy/build/pdf.worker.min.mjs"
