@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "vercel-build": "vercel build || exit 0"
+    "lint": "next lint"
   },
   "dependencies": {
     "@edgestore/react": "^0.2.2",
