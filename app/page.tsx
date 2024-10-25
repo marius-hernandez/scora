@@ -34,9 +34,9 @@ export default function Home() {
 
    async function extractText(event:any) {
     console.log("yo")
-    await pdfToText(event.target.files[0])
-      .then((text) => setResume(text!))
-      .catch((error) => console.error(error))
+    // await pdfToText(event.target.files[0])
+    //   .then((text) => setResume(text!))
+    //   .catch((error) => console.error(error))
   }
   return (
     <main
