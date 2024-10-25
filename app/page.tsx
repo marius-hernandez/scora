@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { evaluateResume } from "@/lib/evaluateResume";
+import { pdfToText } from "@/lib/helper";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-// import { pdfjs } from "react-pdf";
-import * as pdfjs from "pdfjs-dist";
-import { pdfToText } from "@/lib/helper";
+
 
 export default function Home() {
   const [scoraComponent, setScoraComponent] = useState(false);
@@ -34,10 +34,11 @@ export default function Home() {
 
    async function extractText(event:any) {
     console.log("yo")
-    // await pdfToText(event.target.files[0])
-    //   .then((text) => setResume(text!))
-    //   .catch((error) => console.error(error))
+    await pdfToText(event.target.files[0])
+      .then((text) => setResume(text!))
+      .catch((error) => console.error(error))
   }
+
   return (
     <main
       className={`
