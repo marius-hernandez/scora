@@ -42,21 +42,22 @@ export default function Home() {
 
   return (
     <main
-      className={`
+      className={`overflow-x-clip
     flex 
     flex-wrap
     
 
     justify-stretch
-    
+    md:my-10
     `}
     >
       <Card
         className="
       lg:w-fit
       w-full animate-fade
-        
-      my-10 mx-auto h-fit py-20 px-12 rounded-lg shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
+      
+      
+       mx-auto h-fit py-20 px-12 rounded-lg shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
       >
         <h1 className="font-black text-5xl">scora.</h1>
         <br />
@@ -78,7 +79,7 @@ export default function Home() {
         </form>
         <br />
         <span className="text-sm text-slate-400 italic text-center">
-          Developed by
+          Developed by&nbsp;
           <Link className="underline" href={`https://mariusjacob.vercel.app/`}>
             marius jacob
           </Link>

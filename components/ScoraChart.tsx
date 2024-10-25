@@ -50,7 +50,7 @@ const ScoraChart = (scora:ScoraType) => {
     ])
   },[])
   return (
-    <Card>
+    <Card className='animate-fade-left animate-delay-[20ms]'>
       <CardHeader className="items-center pb-4">
         <CardTitle className='text-2xl font-black'>Scora chart</CardTitle>
         <CardDescription>

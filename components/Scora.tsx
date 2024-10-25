@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ScoraChart from "./ScoraChart";
 import { Card } from "./ui/card";
 import { ScoraType } from "@/types/ScoraType";
+import { Button } from "./ui/button";
 
 const Scora = (scora:ScoraType) => {
    const desc={
@@ -13,9 +14,12 @@ const Scora = (scora:ScoraType) => {
   return (
     <div id="scora" className="m-auto 
     lg:w-2/4 
-    w-full leading-3 animate-fade-left
-    py-10">
-       <Card className="col-span-2 py-2 px-6 flex flex-wrap items-center justify-stretch">
+    w-full leading-3 
+    ">
+       <Button className="
+       animate-fade-left
+       w-full h-full
+       col-span-2 py-2 px-6 flex flex-wrap items-center justify-stretch">
           <div className="flex-1 flex items-center gap-2 font-medium leading-none">
             <span className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{scora.scora[0]}</span> <h1 className=''>%</h1>
           </div>
@@ -26,8 +30,14 @@ const Scora = (scora:ScoraType) => {
              scora.scora[0] < 90 ? 'Your resume is almost good!' :
              'You have an excellent resume!'}
           </div>
-        </Card>
-      <div className="flex flex-wrap items-start justify-stretch text-center h-44
+        </Button>
+      <div className="
+      animate-fade-right animate-delay-[20ms]
+      grid 
+      md:grid-cols-4  
+      grid-cols-2
+      text-center 
+      
       ">
         {
         
