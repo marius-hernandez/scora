@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import 'core-js/proposals/promise-with-resolvers';
 
 
 export default function Home() {

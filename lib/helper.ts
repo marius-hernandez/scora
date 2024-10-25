@@ -1,4 +1,6 @@
 import { pdfjs } from "react-pdf";
+import 'core-js/proposals/promise-with-resolvers';
+
 pdfjs.GlobalWorkerOptions.workerSrc="https://unpkg.com/pdfjs-dist@4.4.168/legacy/build/pdf.worker.min.mjs"
 if (typeof Promise.withResolvers === 'undefined') {
   if (window)
